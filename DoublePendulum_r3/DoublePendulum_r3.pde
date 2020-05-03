@@ -15,7 +15,8 @@ void setup() {
   g.beginDraw();
   g.background(0);
   g.endDraw();
-  pendulum.setDrag(0.0005);
+  pendulum.setDrag(0.00005);
+  pendulum.setLengthB(175);
 }
 
 //boolean goingdown = true;
@@ -48,6 +49,10 @@ void draw() {
   } else { 
     g.stroke(0,200,0);
   }
+  
+  if (pendulum.zenith) { 
+    g.ellipse(pendulum.x, pendulum.y, 10, 10); 
+  }
 
   if (pendulum.valid_previous()) { 
     g.line(pendulum.px, pendulum.py, pendulum.x, pendulum.y);
@@ -55,4 +60,34 @@ void draw() {
 
   g.endDraw();
   pendulum.update(); 
+}
+
+boolean paused = false;
+void pause() { 
+  paused = true; 
+  noLoop();
+}
+void unpause() { 
+  paused = false; 
+  loop();
+}
+
+void keyPressed() {
+ if (key == 'p') { 
+   if (paused) { 
+     unpause();
+   } else { 
+     pause();
+   }
+ } else if (key == 'r') {
+   pendulum.setThetaA(PI/2);
+   pendulum.setThetaB(PI/2);
+   pendulum.setOmegaA(0.0);
+   pendulum.setOmegaB(0.0);
+   pendulum.updates = 0;
+ } else if (key == 'c') {
+   g.beginDraw();
+   g.background(0);
+   g.endDraw();
+ }
 }
