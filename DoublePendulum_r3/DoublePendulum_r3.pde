@@ -15,8 +15,8 @@ void setup() {
   g.beginDraw();
   g.background(0);
   g.endDraw();
-  pendulum.setDrag(0.00005);
-  pendulum.setLengthB(175);
+  //pendulum.setDrag(0.00005);
+  //pendulum.setLengthB(175);
 }
 
 //boolean goingdown = true;
@@ -80,14 +80,49 @@ void keyPressed() {
      pause();
    }
  } else if (key == 'r') {
+   println("reset");
    pendulum.setThetaA(PI/2);
    pendulum.setThetaB(PI/2);
    pendulum.setOmegaA(0.0);
    pendulum.setOmegaB(0.0);
    pendulum.updates = 0;
  } else if (key == 'c') {
+   println("clear");
    g.beginDraw();
    g.background(0);
    g.endDraw();
+ } else if (key == '{') {
+   pendulum.setLengthA(pendulum.lengthA + 1);
+   println("Length A:" + pendulum.lengthA);
+ } else if (key == '[') {
+   pendulum.setLengthA(pendulum.lengthA - 1);   
+   println("Length A:" + pendulum.lengthA);
+ } else if (key == '}') {
+   pendulum.setLengthB(pendulum.lengthB + 1);
+   println("Length B:" + pendulum.lengthB);
+ } else if (key == ']') {
+   pendulum.setLengthB(pendulum.lengthB - 1);   
+   println("Length B:" + pendulum.lengthB);
+ } else if (key == '_') { 
+   pendulum.setMassA(pendulum.massA + 1);
+   println("Mass A:" + pendulum.massA);   
+ } else if (key == '-') {
+   pendulum.setMassA(pendulum.massA - 1);
+   println("Mass A:" + pendulum.massA);   
+ } else if (key == '+') {
+   pendulum.setMassB(pendulum.massB + 1);
+   println("Mass B:" + pendulum.massB);   
+ } else if (key == '=') {
+   pendulum.setMassB(pendulum.massB - 1);
+   println("Mass B:" + pendulum.massB);   
+ } else if (key == '?') {
+   pendulum.setDrag(pendulum.drag + 0.0001);
+   println("Drag: " + pendulum.drag);
+ } else if (key == '/') {
+   if (pendulum.drag >= 0.0001) { 
+     pendulum.setDrag(pendulum.drag - 0.0001);
+     println("Drag: " + pendulum.drag);
+   }
  }
+ 
 }
